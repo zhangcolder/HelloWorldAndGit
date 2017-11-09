@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>注册</title>
+		<link rel="stylesheet" href="css/all.css" type="text/css" />
+		<style type="text/css">
+			#registered_box {
+				width: 257px;
+				height: 100%;
+				margin: 300px auto 0;
+				padding: 10px;
+				border: 6px double #FFF;
+				border-radius: 10px;
+				text-align: center;
+			}
+			.rigth_box{
+				
+			}
+			.left_box{
+				float: left;
+				text-align: right;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="registered_box">
+			<form action="Registered" method="post" name="login">
+				<div class="left_box">
+					<p>邮箱：</p><br />
+					<p>用户名：</p><br />
+					<p>密码：</p><br />
+					<p>确认密码：</p><br />
+				</div>
+				<div class="rigth_box">
+					<input type="text" name="r_useremail" value="" /><br /><br />
+					<input type="text" name="r_username" value="" /><br /><br />
+					<input type="password" name="r_password1" value="" /><br /><br />
+					<input type="password" name="r_password2" value="" /><br /><br />
+				</div>
+				<input type="submit" value="确&nbsp;认&nbsp;注&nbsp;册" name="r_registered" />
+			</form>
+		</div>
+	</body>
+
+</html>

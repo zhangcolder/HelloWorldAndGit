@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<!-- saved from url=(0063)http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220671.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Servlet生命周期与工作原理 - 艾泽拉斯的太阳 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./Servlet生命周期与工作原理 - 艾泽拉斯的太阳 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./Servlet生命周期与工作原理 - 艾泽拉斯的太阳 - 博客园_files/bundle-BlackLowKey.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./Servlet生命周期与工作原理 - 艾泽拉斯的太阳 - 博客园_files/bundle-BlackLowKey-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/cuiliang/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/cuiliang/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/cuiliang/wlwmanifest.xml">
+<script async="" src="./Servlet生命周期与工作原理 - 艾泽拉斯的太阳 - 博客园_files/analytics.js.下载"></script><script src="./Servlet生命周期与工作原理 - 艾泽拉斯的太阳 - 博客园_files/jquery.js.下载" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'cuiliang', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./Servlet生命周期与工作原理 - 艾泽拉斯的太阳 - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/cuiliang/"><img id="blogLogo" src="./Servlet生命周期与工作原理 - 艾泽拉斯的太阳 - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/cuiliang/">艾泽拉斯的太阳</a></h1>
+<h2>一个菜鸟的成长历程</h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/cuiliang/">首页</a></li>
+<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/%E8%89%BE%E6%B3%BD%E6%8B%89%E6%96%AF%E7%9A%84%E5%A4%AA%E9%98%B3">联系</a></li>
+<li><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/cuiliang/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/cuiliang/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<span id="stats_post_count">随笔 - 28&nbsp; </span>
+<span id="stats_article_count">文章 - 0&nbsp; </span>
+<span id="stats-comment_count">评论 - 19</span>
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220671.html">Servlet生命周期与工作原理</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p>Servlet生命周期分为三个阶段：</p>
+<p>　　1，初始化阶段&nbsp; 调用init()方法</p>
+<p>　　2，响应客户请求阶段　　调用service()方法</p>
+<p>　　3，终止阶段　　调用destroy()方法</p>
+<p></p>
+<p>Servlet初始化阶段：</p>
+<p>　　在下列时刻Servlet容器装载Servlet：</p>
+<p>　　　　1，Servlet容器启动时自动装载某些Servlet，实现它只需要在web.XML文件中的&lt;Servlet&gt;&lt;/Servlet&gt;之间添加如下代码：</p>
+<div class="cnblogs_Highlighter">
+<div><div id="highlighter_943385" class="syntaxhighlighter nogutter  java"><div class="toolbar"><span><a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220671.html#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="java plain">&lt;loadon-startup&gt;</code><code class="java value">1</code><code class="java plain">&lt;/loadon-startup&gt; </code></div></div></td></tr></tbody></table></div></div>
+</div>
+<p>　　　　2，在Servlet容器启动后，客户首次向Servlet发送请求</p>
+<p>　　　　3，Servlet类文件被更新后，重新装载Servlet</p>
+<p>　　Servlet被装载后，Servlet容器创建一个Servlet实例并且调用Servlet的init()方法进行初始化。在Servlet的整个生命周期内，init()方法只被调用一次。</p>
+<p>　　　　</p>
+<p>Servlet工作原理：</p>
+<p>　　首先简单解释一下Servlet接收和响应客户请求的过程，首先客户发送一个请求，Servlet是调用service()方法对请求进行响应的，通过源代码可见，service()方法中对请求的方式进行了匹配，选择调用doGet,doPost等这些方法，然后再进入对应的方法中调用逻辑层的方法，实现对客户的响应。在Servlet接口和GenericServlet中是没有doGet,doPost等等这些方法的，HttpServlet中定义了这些方法，但是都是返回error信息，所以，我们每次定义一个Servlet的时候，都必须实现doGet或doPost等这些方法。</p>
+<p>　　每一个自定义的Servlet都必须实现Servlet的接口，Servlet接口中定义了五个方法，其中比较重要的三个方法涉及到Servlet的生命周期，分别是上文提到的init(),service(),destroy()方法。GenericServlet是一个通用的，不特定于任何协议的Servlet,它实现了Servlet接口。而HttpServlet继承于GenericServlet，因此HttpServlet也实现了Servlet接口。所以我们定义Servlet的时候只需要继承HttpServlet即可。</p>
+<p>　　Servlet接口和GenericServlet是不特定于任何协议的，而HttpServlet是特定于HTTP协议的类，所以HttpServlet中实现了service()方法，并将请求ServletRequest,ServletResponse强转为HttpRequest和HttpResponse。</p>
+<div class="cnblogs_Highlighter">
+<div><div id="highlighter_613707" class="syntaxhighlighter nogutter  java"><div class="toolbar"><span><a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220671.html#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="java keyword">public</code> <code class="java keyword">void</code> <code class="java plain">service(ServletRequest req,ServletResponse res) </code></div><div class="line number2 index1 alt1"><code class="java spaces">&nbsp;&nbsp;</code><code class="java keyword">throws</code> <code class="java plain">ServletException,IOException</code></div><div class="line number3 index2 alt2"><code class="java plain">{</code></div><div class="line number4 index3 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">HttpRequest request;</code></div><div class="line number5 index4 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">HttpResponse response;</code></div><div class="line number6 index5 alt1">&nbsp;</div><div class="line number7 index6 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">try</code></div><div class="line number8 index7 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">{</code></div><div class="line number9 index8 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">req = (HttpRequest)request;</code></div><div class="line number10 index9 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">res = (HttpResponse)response;</code></div><div class="line number11 index10 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">}</code><code class="java keyword">catch</code><code class="java plain">(ClassCastException e)</code></div><div class="line number12 index11 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">{</code></div><div class="line number13 index12 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">throw</code> <code class="java keyword">new</code> <code class="java plain">ServletException(</code><code class="java string">"non-HTTP request response"</code><code class="java plain">); </code></div><div class="line number14 index13 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">}</code></div><div class="line number15 index14 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">service(request,response);</code></div><div class="line number16 index15 alt1"><code class="java plain">}</code></div></div></td></tr></tbody></table></div></div>
+</div>
+<p>&nbsp;&nbsp;&nbsp; 代码的最后调用了HTTPServlet自己的service(request,response)方法，然后根据请求去调用对应的doXXX方法，因为HttpServlet中的doXXX方法都是返回错误信息，</p>
+<div class="cnblogs_Highlighter">
+<div><div id="highlighter_432888" class="syntaxhighlighter nogutter  java"><div class="toolbar"><span><a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220671.html#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="java keyword">protected</code> <code class="java keyword">void</code> <code class="java plain">doGet(HttpServletRequest res,HttpServletResponse resp)</code></div><div class="line number2 index1 alt1"><code class="java spaces">&nbsp;&nbsp;</code><code class="java keyword">throws</code> <code class="java plain">ServletException,IOException</code></div><div class="line number3 index2 alt2"><code class="java plain">{</code></div><div class="line number4 index3 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;</code><code class="java plain">String protocol = req.getProtocol();</code></div><div class="line number5 index4 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;</code><code class="java plain">String msg = IStrings.getString(</code><code class="java string">"http.method_get_not_supported"</code><code class="java plain">);</code></div><div class="line number6 index5 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;</code><code class="java keyword">if</code><code class="java plain">(protocol.equals(</code><code class="java string">"1.1"</code><code class="java plain">))</code></div><div class="line number7 index6 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;</code><code class="java plain">{</code></div><div class="line number8 index7 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">resp.sendError(HttpServletResponse.SC.METHOD.NOT.ALLOWED,msg);</code></div><div class="line number9 index8 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">}</code></div><div class="line number10 index9 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;</code><code class="java plain">esle</code></div><div class="line number11 index10 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">{</code></div><div class="line number12 index11 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">resp.sendError(HttpServletResponse.SC_BAD_REQUEST,msg);</code></div><div class="line number13 index12 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">}</code></div><div class="line number14 index13 alt1"><code class="java plain">}</code></div></div></td></tr></tbody></table></div></div>
+</div>
+<p>所以需要我们在自定义的Servlet中override这些方法！</p>
+<p></p>
+<p>　　　　<strong><span style="color: #ff0000;">源码面前，了无秘密！</span></strong></p>
+<p><span style="color: #000000;">---------------------------------------------------------------------------------------------------------------------------------<strong></strong></span></p>
+<p><span style="color: #000000;"><strong></strong>Servlet响应请求阶段：</span></p>
+<p><span style="color: #000000;">　　对于用户到达Servlet的请求，Servlet容器会创建<span style="color: #ff0000;">特定于这个请求的ServletRequest对象和ServletResponse对象</span>，然后调用Servlet的service方法。service方法从ServletRequest对象获得客户请求信息，处理该请求，并通过ServletResponse对象向客户返回响应信息。</span></p>
+<p><span style="color: #000000;">　　对于Tomcat来说，它会将传递过来的参数放在一个Hashtable中，该Hashtable的定义是：</span></p>
+<p></p>
+<div class="cnblogs_Highlighter">
+<div><div id="highlighter_106991" class="syntaxhighlighter nogutter  java"><div class="toolbar"><span><a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220671.html#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="java keyword">private</code> <code class="java plain">Hashtable&lt;String String[]&gt; paramHashStringArray = </code><code class="java keyword">new</code> <code class="java plain">Hashtable&lt;String String[]&gt;();</code></div></div></td></tr></tbody></table></div></div>
+</div>
+<p></p>
+<p>　　这是一个String--&gt;String[]的键值映射。</p>
+<p>　　HashMap线程不安全的，Hashtable线程安全。</p>
+<p>-----------------------------------------------------------------------------------------------------------------------------------</p>
+<p>Servlet终止阶段：</p>
+<p>　　当WEB应用被终止，或Servlet容器终止运行，或Servlet容器重新装载Servlet新实例时，Servlet容器会先调用Servlet的destroy()方法，在destroy()方法中可以释放掉Servlet所占用的资源。</p>
+<p></p>
+<p><span style="color: #000000;">-----------------------------------------------------------------------------------------------------------------------------------</span></p>
+<p><span style="color: #000000;">Servlet何时被创建：</span></p>
+<p><span style="color: #000000;">　　1，默认情况下，当WEB客户第一次请求访问某个Servlet的时候，WEB容器将创建这个Servlet的实例。</span></p>
+<p><span style="color: #000000;">　　2，当web.xml文件中如果&lt;servlet&gt;元素中指定了&lt;load-on-startup&gt;子元素时，Servlet容器在启动web服务器时，将按照顺序创建并初始化Servlet对象。</span></p>
+<p><span style="color: #000000;">　　注意：在web.xml文件中，某些Servlet只有&lt;serlvet&gt;元素，没有&lt;servlet-mapping&gt;元素，这样我们无法通过url的方式访问这些Servlet，这种Servlet通常会在&lt;servlet&gt;元素中配置一个&lt;load-on-startup&gt;子元素，让容器在启动的时候自动加载这些Servlet并调用init()方法，完成一些全局性的初始化工作。</span></p>
+<p><span style="color: #000000;"><br></span></p>
+<p><span style="color: #000000;">Web应用何时被启动：</span></p>
+<p><span style="color: #000000;">　　1，当Servlet容器启动的时候，所有的Web应用都会被启动</span></p>
+<p><span style="color: #000000;">　　2，控制器启动web应用<br></span></p>
+<p><span style="color: #000000;">-----------------------------------------------------------------------------------------------------------------------------------------------<br></span></p>
+<p><span style="color: #000000;">Servlet与JSP的比较：</span></p>
+<p><span style="color: #000000;">　　有许多相似之处，都可以生成动态网页。</span></p>
+<p><span style="color: #000000;">　　JSP的优点是擅长于网页制作，生成动态页面比较直观，缺点是不容易跟踪与排错。</span></p>
+<p><span style="color: #000000;">　　Servlet是纯Java语言，擅长于处理流程和业务逻辑，缺点是生成动态网页不直观。<br></span></p>
+<p><span style="color: #000000;"><br></span></p>
+<p><span style="color: #000000;"></span><strong><span style="color: #ff0000;"></span></strong><span style="color: #ff0000;"><span style="color: #000000;"></span></span><strong><span style="color: #ff0000;"><br></span></strong></p>
+<p><strong><span style="color: #ff0000;"><br></span></strong></p>
+<p><strong><span style="color: #ff0000;"><br></span></strong></p>
+<p><strong><span style="color: #ff0000;"><br></span></strong></p>
+<p><strong><span style="color: #ff0000;"><br></span></strong></p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/cuiliang/category/278644.html" target="_blank">Java</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/cuiliang/tag/Servlet/">Servlet</a></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(2220671,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;fe1f5938-efc6-df11-ac81-842b2b196315&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./Servlet生命周期与工作原理 - 艾泽拉斯的太阳 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./Servlet生命周期与工作原理 - 艾泽拉斯的太阳 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/cuiliang/" target="_blank"><img src="./Servlet生命周期与工作原理 - 艾泽拉斯的太阳 - 博客园_files/20140306152803.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/cuiliang/">艾泽拉斯的太阳</a><br>
+            <a href="http://home.cnblogs.com/u/cuiliang/followees">关注 - 0</a><br>
+            <a href="http://home.cnblogs.com/u/cuiliang/followers">粉丝 - 91</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;fe1f5938-efc6-df11-ac81-842b2b196315&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(2220671,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">45</span>
+    </div>
+    <div class="buryit" onclick="votePost(2220671,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220616.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220616.html" title="发布于2011-10-21 18:59">重定向与请求转发</a><br><a href="http://www.cnblogs.com/cuiliang/archive/2011/10/22/2221106.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/cuiliang/archive/2011/10/22/2221106.html" title="发布于2011-10-22 13:00">Servlet多线程问题</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2011-10-21 20:39</span> <a href="http://www.cnblogs.com/cuiliang/">艾泽拉斯的太阳</a> 阅读(<span id="post_view_count">309775</span>) 评论(<span id="post_comment_count">14</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=2220671" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220671.html#" onclick="AddToWz(2220671);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=76271,cb_entryId=2220671,cb_blogApp=currentBlogApp,cb_blogUserGuid='fe1f5938-efc6-df11-ac81-842b2b196315',cb_entryCreatedDate='2011/10/21 20:39:00';loadViewCount(cb_entryId);var cb_postType=1;</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<br>
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems"></div>	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220671.html#2286042" class="layer">#1楼</a><a name="2286042" id="comment_anchor_2286042"></a>  <span class="comment_date">2012-01-04 11:20</span> <a id="ctl00_CommentList_NameLink_0" title="未注册用户" href="http://www.cnitblog.com/r.aspx?url=http://xwblog.cn" rel="nofllow" target="_blank">电脑没声音</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2286042" class="blog_comment_body">来学习一下勒</div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220671.html#2304422" class="layer">#2楼</a><a name="2304422" id="comment_anchor_2304422"></a>  <span class="comment_date">2012-02-08 10:29</span> <a id="ctl00_CommentList_NameLink_1" title="未注册用户" target="_blank">salutonmono</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2304422" class="blog_comment_body">重温一下以前的知识，项目要用，终于又要回到JAVA了。</div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220671.html#2497912" class="layer">#3楼</a><a name="2497912" id="comment_anchor_2497912"></a>  <span class="comment_date">2012-10-21 21:42</span> <a id="a_comment_author_2497912" href="http://www.cnblogs.com/duanduanlong/" target="_blank">uuuuuuuuuuuuuu</a> <a href="http://msg.cnblogs.com/send/uuuuuuuuuuuuuu" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2497912" class="blog_comment_body">mark</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2497912,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2497912,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220671.html#2601462" class="layer">#4楼</a><a name="2601462" id="comment_anchor_2601462"></a>  <span class="comment_date">2013-01-16 14:44</span> <a id="a_comment_author_2601462" href="http://www.cnblogs.com/haitao666/" target="_blank">学无止境.2013</a> <a href="http://msg.cnblogs.com/send/%E5%AD%A6%E6%97%A0%E6%AD%A2%E5%A2%83.2013" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2601462" class="blog_comment_body">不错，我差点忘记Servlet写法了，呵呵，温习</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2601462,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2601462,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2601462_avatar" style="display:none;">http://pic.cnblogs.com/face/u301559.png?id=26162125</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220671.html#2657144" class="layer">#5楼</a><a name="2657144" id="comment_anchor_2657144"></a>  <span class="comment_date">2013-04-14 15:45</span> <a id="a_comment_author_2657144" href="http://home.cnblogs.com/u/516990/" target="_blank">Jinyu88</a> <a href="http://msg.cnblogs.com/send/Jinyu88" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2657144" class="blog_comment_body">嗯，有收获。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2657144,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2657144,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220671.html#2713997" class="layer">#6楼</a><a name="2713997" id="comment_anchor_2713997"></a>  <span class="comment_date">2013-06-26 17:12</span> <a id="a_comment_author_2713997" href="http://home.cnblogs.com/u/512843/" target="_blank">Ferall</a> <a href="http://msg.cnblogs.com/send/Ferall" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2713997" class="blog_comment_body">恩，来学习下~</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2713997,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2713997,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220671.html#2878186" class="layer">#7楼</a><a name="2878186" id="comment_anchor_2878186"></a>  <span class="comment_date">2014-02-19 11:05</span> <a id="a_comment_author_2878186" href="http://www.cnblogs.com/gary-zheng/" target="_blank">Gary#zheng</a> <a href="http://msg.cnblogs.com/send/Gary%23zheng" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2878186" class="blog_comment_body">巩固知识。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2878186,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2878186,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2878186_avatar" style="display:none;">http://pic.cnblogs.com/face/599821/20140116232745.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220671.html#2969328" class="layer">#8楼</a><a name="2969328" id="comment_anchor_2969328"></a>  <span class="comment_date">2014-06-22 11:36</span> <a id="a_comment_author_2969328" href="http://home.cnblogs.com/u/585344/" target="_blank">小卓在线</a> <a href="http://msg.cnblogs.com/send/%E5%B0%8F%E5%8D%93%E5%9C%A8%E7%BA%BF" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2969328" class="blog_comment_body">很棒的样子...  顶起、</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2969328,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2969328,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220671.html#2983310" class="layer">#9楼</a><a name="2983310" id="comment_anchor_2983310"></a>  <span class="comment_date">2014-07-14 10:26</span> <a id="a_comment_author_2983310" href="http://home.cnblogs.com/u/464913/" target="_blank">ob</a> <a href="http://msg.cnblogs.com/send/ob" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2983310" class="blog_comment_body">重温一下，写的很好</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2983310,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2983310,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220671.html#3238778" class="layer">#10楼</a><a name="3238778" id="comment_anchor_3238778"></a>  <span class="comment_date">2015-07-31 10:43</span> <a id="a_comment_author_3238778" href="http://www.cnblogs.com/chalk/" target="_blank">King_J</a> <a href="http://msg.cnblogs.com/send/King_J" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3238778" class="blog_comment_body">写的很好,进来长长见识</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3238778,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3238778,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3238778_avatar" style="display:none;">http://pic.cnblogs.com/face/779991/20150729220017.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220671.html#3318527" class="layer">#11楼</a><a name="3318527" id="comment_anchor_3318527"></a>  <span class="comment_date">2015-12-01 20:51</span> <a id="a_comment_author_3318527" href="http://www.cnblogs.com/xiaoxiao0314/" target="_blank">伟大帅气的笑笑大人</a> <a href="http://msg.cnblogs.com/send/%E4%BC%9F%E5%A4%A7%E5%B8%85%E6%B0%94%E7%9A%84%E7%AC%91%E7%AC%91%E5%A4%A7%E4%BA%BA" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3318527" class="blog_comment_body">很棒,很实用</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3318527,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3318527,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3318527_avatar" style="display:none;">http://pic.cnblogs.com/face/820180/20151009150820.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220671.html#3613278" class="layer">#12楼</a><a name="3613278" id="comment_anchor_3613278"></a>  <span class="comment_date">2017-02-07 11:00</span> <a id="a_comment_author_3613278" href="http://home.cnblogs.com/u/1064245/" target="_blank">lucy慕容</a> <a href="http://msg.cnblogs.com/send/lucy%E6%85%95%E5%AE%B9" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3613278" class="blog_comment_body">很不错，巩固知识</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3613278,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3613278,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220671.html#3753862" class="layer">#13楼</a><a name="3753862" id="comment_anchor_3753862"></a>  <span class="comment_date">2017-08-09 15:46</span> <a id="a_comment_author_3753862" href="http://www.cnblogs.com/smile-hope/" target="_blank">安然菇凉</a> <a href="http://msg.cnblogs.com/send/%E5%AE%89%E7%84%B6%E8%8F%87%E5%87%89" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3753862" class="blog_comment_body">讲什么时候会初始化，什么时候会终止讲得挺清楚的</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3753862,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3753862,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220671.html#3784075" class="layer">#14楼</a><a name="3784075" id="comment_anchor_3784075"></a><span id="comment-maxId" style="display:none;">3784075</span><span id="comment-maxDate" style="display:none;">2017/9/14 14:29:53</span>  <span class="comment_date">2017-09-14 14:29</span> <a id="a_comment_author_3784075" href="http://www.cnblogs.com/imeilige/" target="_blank">imeilige</a> <a href="http://msg.cnblogs.com/send/imeilige" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3784075" class="blog_comment_body">private Hashtable&lt;String String[]&gt; paramHashStringArray = new Hashtable&lt;String String[]&gt;();<br><br>这行代码是tomcat的哪个jar里面的？<br><br>这个tomcat-coyote.jar和你说的不一样</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3784075,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3784075,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3784075_avatar" style="display:none;">http://pic.cnblogs.com/face/534406/20170425091116.png</span>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220671.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220671.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="https://group.cnblogs.com/topic/77995.html" target="_blank">【活动】阿里云双11活动开始预热 云服务器限时2折起</a><br><a href="http://click.aliyun.com/m/33696/" target="_blank">【调查】有奖调研即刻参与，你竟然是酱紫程序猿！</a><br><a href="http://xc.hubwiz.com/course/592ee9b2b343f27b0ae1ba99?affid=cnblogs" target="_blank">【推荐】Vue.js 2.x 快速入门，大量高效实战示例</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="http://www.gcpowertools.com.cn/products/activereports_overview.htm?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=AR&amp;utm_campaign=community" target="_blank"><img width="300" height="250" src="./Servlet生命周期与工作原理 - 艾泽拉斯的太阳 - 博客园_files/24442-20171031213643701-1551350337.jpg" alt="葡萄城"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/581802/" target="_blank">携程开发“乐视钛媒体掐架”IP 推FF定制游</a><br> ·  <a href="http://news.cnblogs.com/n/581803/" target="_blank">新浪微博欲去秒拍化：面临被围剿境地，担心失去短视频阵地</a><br> ·  <a href="http://news.cnblogs.com/n/581801/" target="_blank">支付宝推iPhone X碎屏险 价格不是一般良心！</a><br> ·  <a href="http://news.cnblogs.com/n/581800/" target="_blank">乐视被套股民自述：为什么我还要为贾跃亭“洗地”</a><br> ·  <a href="http://news.cnblogs.com/n/581799/" target="_blank">专访OPPO产品经理：有舍有得 谁才是OPPO核心用户？</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="http://click.aliyun.com/m/32986/" target="_blank"><img width="468" height="60" src="./Servlet生命周期与工作原理 - 艾泽拉斯的太阳 - 博客园_files/24442-20171027070203758-1397753435.jpg" alt="阿里云双11"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/581467/" target="_blank">改善程序员生活质量的 3+10 习惯</a><br> ·  <a href="http://kb.cnblogs.com/page/568841/" target="_blank">NASA的10条代码编写原则</a><br> ·  <a href="http://kb.cnblogs.com/page/578502/" target="_blank">为什么你参加了那么多培训，却依然表现平平？</a><br> ·  <a href="http://kb.cnblogs.com/page/579832/" target="_blank">写给初学前端工程师的一封信</a><br> ·  <a href="http://kb.cnblogs.com/page/579480/" target="_blank">实用VPC虚拟私有云设计原则</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><!-- 每日一句JS引用 开始 -->
+<span id="hjdict_daily">
+<a href="http://dict.hjenglish.com/" target="_blank" title="沪江小D, 在线词典, 英语学习, 查单词">每日学口语</a>
+</span>
+<!-- 每日一句JS引用 结束 --><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/cuiliang/">艾泽拉斯的太阳</a><br>园龄：<a href="http://home.cnblogs.com/u/cuiliang/" title="入园时间：2010-09-23">7年1个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/cuiliang/followers/">91</a><br>关注：<a href="http://home.cnblogs.com/u/cuiliang/followees/">0</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;fe1f5938-efc6-df11-ac81-842b2b196315&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2011/09/01&#39;);return false;">&lt;</a></td><td align="center">2011年10月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2011/11/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">25</td><td class="CalOtherMonthDay" align="center">26</td><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalWeekendDay" align="center">1</td></tr><tr><td class="CalWeekendDay" align="center">2</td><td align="center">3</td><td align="center">4</td><td align="center">5</td><td align="center">6</td><td align="center">7</td><td class="CalWeekendDay" align="center">8</td></tr><tr><td class="CalWeekendDay" align="center">9</td><td align="center">10</td><td align="center">11</td><td align="center">12</td><td align="center">13</td><td align="center">14</td><td class="CalWeekendDay" align="center">15</td></tr><tr><td class="CalWeekendDay" align="center">16</td><td align="center">17</td><td align="center">18</td><td align="center">19</td><td align="center">20</td><td align="center"><a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21.html"><u>21</u></a></td><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/cuiliang/archive/2011/10/22.html"><u>22</u></a></td></tr><tr><td class="CalWeekendDay" align="center">23</td><td align="center">24</td><td align="center">25</td><td align="center">26</td><td align="center">27</td><td align="center">28</td><td class="CalWeekendDay" align="center">29</td></tr><tr><td class="CalWeekendDay" align="center">30</td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/cuiliang/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/cuiliang/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/cuiliang/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/cuiliang/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/cuiliang/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div></div><div id="sidebar_toptags" class="sidebar-block">
+<div class="catListTag">
+<h3 class="catListTitle">我的标签</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/cuiliang/tag/Servlet/">Servlet</a>(2)</li><li><a href="http://www.cnblogs.com/cuiliang/tag/Liunx/">Liunx</a>(2)</li><li><a href="http://www.cnblogs.com/cuiliang/tag/MAC/">MAC</a>(1)</li><li><a href="http://www.cnblogs.com/cuiliang/tag/session/">session</a>(1)</li><li><a href="http://www.cnblogs.com/cuiliang/tag/SSH%E8%BF%9E%E6%8E%A5/">SSH连接</a>(1)</li><li><a href="http://www.cnblogs.com/cuiliang/tag/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5/">服务器时间同步</a>(1)</li><li><a href="http://www.cnblogs.com/cuiliang/tag/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/">环境变量</a>(1)</li><li><a href="http://www.cnblogs.com/cuiliang/tag/%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/">目录结构</a>(1)</li><li><a href="http://www.cnblogs.com/cuiliang/tag/%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1/">内置对象</a>(1)</li><li><a href="http://www.cnblogs.com/cuiliang/tag/%E8%AF%B7%E6%B1%82%E8%BD%AC%E5%8F%91/">请求转发</a>(1)</li><li><a href="http://www.cnblogs.com/cuiliang/tag/">更多</a></li>
+</ul>
+</div></div><div id="sidebar_categories">
+<div id="sidebar_postcategory" class="catListPostCategory sidebar-block">
+<h3 class="catListTitle">随笔分类</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/cuiliang/category/309983.html">AJAX</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/cuiliang/category/518401.html">Ibatis(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/cuiliang/category/278644.html">Java(12)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/cuiliang/category/329398.html">jQuery</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/cuiliang/category/621144.html">JVM</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/cuiliang/category/622907.html">Linux(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/cuiliang/category/705140.html">MAC(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/cuiliang/category/278643.html">MySQL(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/cuiliang/category/640845.html">Nginx</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/cuiliang/category/640839.html">Spring</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/cuiliang/category/329399.html">Struts</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/cuiliang/category/329400.html">Struts2</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/cuiliang/category/640844.html">Tomcat</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/cuiliang/category/329401.html">XML</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_postarchive" class="catListPostArchive sidebar-block">
+<h3 class="catListTitle">随笔档案</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/cuiliang/archive/2016/08.html">2016年8月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/cuiliang/archive/2015/10.html">2015年10月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/cuiliang/archive/2015/06.html">2015年6月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/cuiliang/archive/2014/10.html">2014年10月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/cuiliang/archive/2013/09.html">2013年9月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/cuiliang/archive/2013/05.html">2013年5月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/cuiliang/archive/2011/10.html">2011年10月 (9)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/cuiliang/archive/2011/07.html">2011年7月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/cuiliang/archive/2011/05.html">2011年5月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/cuiliang/archive/2011/03.html">2011年3月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/cuiliang/archive/2011/02.html">2011年2月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/cuiliang/archive/2011/01.html">2011年1月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/cuiliang/archive/2010/09.html">2010年9月 (2)</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_links485611" class="catList sidebar-block">
+<h3 class="catListTitle">博客</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_2_Link_0" href="http://blog.csdn.net/cuiliang8635" rel="nofollow">CSDN博客</a> </li>
+
+<li><a id="CatList_LinkList_2_Link_1" href="http://cuiliang86.iteye.com/" rel="nofollow" target="_blank">ITEYE博客</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_links558130" class="catList sidebar-block">
+<h3 class="catListTitle">优秀文章</h3>
+
+<ul>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	28749
+	</li>
+	<li class="liRank">
+		排名 -	12012
+	</li>
+</ul>
+</div>
+
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220671.html#3784075">1. Re:Servlet生命周期与工作原理</a></li>
+        <li class="recent_comment_body">private Hashtable paramHashStringArray = new Hashtable();这行代码是tomcat的哪个jar里面的？这个tomcat-coyote.jar和你说......</li>
+        <li class="recent_comment_author">--imeilige</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220616.html#3781206">2. Re:重定向与请求转发</a></li>
+        <li class="recent_comment_body">想也许哦看～～</li>
+        <li class="recent_comment_author">--规格严格-功夫到家</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220671.html#3753862">3. Re:Servlet生命周期与工作原理</a></li>
+        <li class="recent_comment_body">讲什么时候会初始化，什么时候会终止讲得挺清楚的</li>
+        <li class="recent_comment_author">--安然菇凉</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/cuiliang/p/4900314.html#3676967">4. Re:【图解】Eclipse下JRebel6.2.0热部署插件安装、破解及配置【转】</a></li>
+        <li class="recent_comment_body">我运行时报这个错误：Variable references empty selection: ${project_path}<br>网上说clean几次就行了  可是我怎么clean都不行</li>
+        <li class="recent_comment_author">--复合式→展开式</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220671.html#3613278">5. Re:Servlet生命周期与工作原理</a></li>
+        <li class="recent_comment_body">很不错，巩固知识</li>
+        <li class="recent_comment_author">--lucy慕容</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220671.html">1. Servlet生命周期与工作原理(309774)</a></li><li><a href="http://www.cnblogs.com/cuiliang/p/3327039.html">2. ExecutorService常用方法和newFixedThreadPool创建固定大小的线程池(24419)</a></li><li><a href="http://www.cnblogs.com/cuiliang/p/4900314.html">3. 【图解】Eclipse下JRebel6.2.0热部署插件安装、破解及配置【转】(12353)</a></li><li><a href="http://www.cnblogs.com/cuiliang/archive/2011/10/22/2221106.html">4. Servlet多线程问题(6952)</a></li><li><a href="http://www.cnblogs.com/cuiliang/p/4900181.html">5. MySQL创建触发器(6300)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220671.html">1. Servlet生命周期与工作原理(14)</a></li><li><a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220616.html">2. 重定向与请求转发(1)</a></li><li><a href="http://www.cnblogs.com/cuiliang/p/4900314.html">3. 【图解】Eclipse下JRebel6.2.0热部署插件安装、破解及配置【转】(1)</a></li><li><a href="http://www.cnblogs.com/cuiliang/archive/2011/03/08/1977122.html">4. Companion.JS使用调试(1)</a></li><li><a href="http://www.cnblogs.com/cuiliang/archive/2011/10/22/2221219.html">5. Servlet过滤器（Filter）(1)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220671.html">1. Servlet生命周期与工作原理(45)</a></li><li><a href="http://www.cnblogs.com/cuiliang/p/3327039.html">2. ExecutorService常用方法和newFixedThreadPool创建固定大小的线程池(3)</a></li><li><a href="http://www.cnblogs.com/cuiliang/archive/2011/10/22/2221126.html">3. Cookie(1)</a></li><li><a href="http://www.cnblogs.com/cuiliang/archive/2011/10/21/2220612.html">4. JSP内置对象(1)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2017 艾泽拉斯的太阳
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+</body></html>
