@@ -5,8 +5,13 @@ package com.zcolder.bean;
  * @author ÕÅ³¯·æ
  */
 public class JavaBeanTest {
-	
+	/**
+	 * Ãû×Ö
+	 */
 	private String name;
+	/**
+	 * ÄêÁä
+	 */
 	private int age;
 	
 	public JavaBeanTest() {
